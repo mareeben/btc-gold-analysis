@@ -1,4 +1,3 @@
-import coinbase.wallet.client as coinbase_client
 from datetime import datetime, timezone, timedelta
 from datetime_utils import parse_unix_timestamp_in_ms_to_datetime as parse_unix_time
 import pandas as pd
@@ -28,18 +27,6 @@ def get_historic_prices_as_df(symbol, start_time, end_time, granularity):
     else:
         print(f"Error: {response.status_code}, {response.text}")
         return None
-
-def auth_client():
-    try:
-        import config_local as config
-    except ImportError:
-        raise ImportError("Local settings file (config_local.py) not found. Please create one.")
-
-    # Create a config_local.py file and specify values for your api key and secret, BINANCE_API_KEY, and BINANCE_API_SECRET
-    api_key = config.COINBASE_KEY
-    api_secret = config.COINBASE_SECRET
-
-    return coinbase_client.Client(api_key, api_secret)
 
 if __name__ == "__main__":
     start_date = datetime(2015, 1,1).replace(tzinfo=timezone.utc)
